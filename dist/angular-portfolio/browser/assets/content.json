@@ -1,0 +1,153 @@
+{
+  "person": {
+    "name": "Komalesh D. Patil",
+    "headline": "Software Developer",
+    "location": "Pune, India",
+    "email": "komalesh.patil20@vit.edu",
+    "summary": "Software Developer with hands-on experience in full-stack development, specializing in Angular and ASP.NET Core. Proven track record in FinTech domain with expertise in FX derivatives trading systems and MIS dashboards. Strong background in machine learning and research with published work in computer vision.",
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/komalesh-patil-34a26b20b/",
+        "icon": "linkedin"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/",
+        "icon": "github"
+      }
+    ],
+    "availabilityBadge": "Open to Software Developer roles"
+  },
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        { "name": "Java", "level": "Advanced" },
+        { "name": "C++", "level": "Intermediate" },
+        { "name": "Python", "level": "Intermediate" },
+        { "name": "SQL", "level": "Advanced" },
+        { "name": "TypeScript", "level": "Intermediate" },
+        { "name": "C", "level": "Intermediate" }
+      ]
+    },
+    {
+      "category": "Frameworks & Technologies",
+      "items": [
+        { "name": "Angular", "level": "Advanced" },
+        { "name": "ASP.NET Core", "level": "Intermediate" },
+        { "name": "Chart.js", "level": "Intermediate" },
+        { "name": "HTML/CSS", "level": "Advanced" }
+      ]
+    },
+    {
+      "category": "Tools & Platforms",
+      "items": [
+        { "name": "Git", "level": "Intermediate" },
+        { "name": "Postman", "level": "Intermediate" },
+        { "name": "SQL Server", "level": "Intermediate" },
+        { "name": "Android Studio", "level": "Beginner" }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "FinIQ Consulting, Pune",
+      "title": "Technical Consultant",
+      "start": "2024-07-01",
+      "end": "Present",
+      "location": "Pune, India",
+      "highlights": [
+        "Designed and developed Angular setup/configuration pages for the FX Cash Deal Entry system, enabling CRUD operations and improving workflow efficiency by 30%.",
+        "Implemented advanced order types (Limit, Stop Loss, If Done, OCO, If Done OCO) with auto/manual execution support for faster trading responses.",
+        "Developed complex post-trade features like Rollover, Partial Early Take-up, Closeout, Deal Split, Cancel, and Rebook for accurate FX trade lifecycle management.",
+        "Built a detailed MIS dashboard for FX Derivatives using Angular + ASP.NET Core visualizing 10K+ monthly trade data points.",
+        "Created a dynamic, filterable PnL Tree Page with analytics per dealer, currency pair, and business unit to reduce analysis time.",
+        "Delivered full-stack FinTech systems integrating Angular and ASP.NET Core aligned with trader workflows."
+      ],
+      "stack": ["Angular", "ASP.NET Core", "SQL Server", "Chart.js", "HTML/CSS", "TypeScript"]
+    },
+    {
+      "company": "FinIQ Consulting, Pune",
+      "title": "Engineering Intern",
+      "start": "2024-01-01",
+      "end": "2024-05-31",
+      "location": "Pune, India",
+      "highlights": [
+        "Gained practical exposure to FX Derivatives deal entry flow and trading system architecture.",
+        "Developed MIS dashboard for Structured Equities desk using Angular, Chart.js, and ASP.NET.",
+        "Built view-only pages to display post-trade data and support document generation/reporting."
+      ],
+      "stack": ["Angular", "Chart.js", "ASP.NET Core", "SQL Server"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Intelligent Housing Recommendation System",
+      "description": "A personalized housing recommendation platform for immigrants using K-Means clustering and NLP-based sentiment analysis of Google reviews.",
+      "stack": ["Python", "K-Means", "NLP", "Google Maps API", "Folium"],
+      "tags": ["Machine Learning", "Data Science", "Recommendation System"],
+      "featured": true,
+      "links": {
+        "repo": "https://github.com/"
+      }
+    },
+    {
+      "name": "Car Parking Slot Detection",
+      "description": "Research project published in IJSREM leveraging CNN for automatic parking slot detection using computer vision techniques.",
+      "stack": ["Python", "TensorFlow", "OpenCV", "CNN"],
+      "tags": ["Computer Vision", "Deep Learning", "Research"],
+      "featured": true,
+      "links": {
+        "publication": "https://ijsrem.com/volume-06-issue-12-december-2022"
+      }
+    }
+  ],
+  "education": [
+    {
+      "school": "Vishwakarma Institute of Technology (VIT), Pune",
+      "program": "B.Tech in Computer Engineering",
+      "start": "2020-06-01",
+      "end": "2024-05-31",
+      "grade": "CPI 8.47",
+      "achievements": [
+        "Active participation in technical clubs and hackathons",
+        "Final Year Project on Intelligent Housing Recommendation System"
+      ]
+    }
+  ],
+  "certifications": [],
+  "publications": [
+    {
+      "title": "Car Parking Slot Detection using Convolutional Neural Networks",
+      "authors": ["Komalesh Patil", "Prof. Mukund Kulkarni", "Chetan Patil", "Tanish Modase", "Tushar Muley", "Aditya Pachore"],
+      "journal": "International Journal of Scientific Research in Engineering and Management (IJSREM)",
+      "volume": "06",
+      "issue": "12",
+      "year": "2022",
+      "url": "https://ijsrem.com/volume-06-issue-12-december-2022"
+    }
+  ],
+  "leadership": [
+    {
+      "organization": "Microsoft Learning Student Club (MLSC), VIT Pune",
+      "role": "Coordinator", 
+      "start": "2022-06",
+      "end": "2023-05",
+      "highlights": [
+        "Organized 10+ hackathons and events in a 30+ member team.",
+        "Helped grow the MLSC community from 200 to 1000+ members."
+      ]
+    },
+    {
+      "organization": "EPEC, VIT Pune",
+      "role": "Domain Secretary",
+      "start": "2022-07", 
+      "end": "2023-05",
+      "highlights": [
+        "Led 10 volunteers and 8 coordinators in student engagement events.",
+        "Enhanced peer learning through structured technical sessions."
+      ]
+    }
+  ]
+}
