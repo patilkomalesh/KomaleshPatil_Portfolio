@@ -1,0 +1,11 @@
+<span 
+  class="badge"
+  [class.badge-primary]="variant === 'primary'"
+  [class.badge-secondary]="variant === 'secondary'"
+  [class.badge-success]="variant === 'success'"
+  [class.badge-warning]="variant === 'warning'"
+  [class.badge-error]="variant === 'error'"
+  [class.badge-small]="size === 'small'"
+  [class.badge-large]="size === 'large'">
+  <ng-content></ng-content>
+</span>

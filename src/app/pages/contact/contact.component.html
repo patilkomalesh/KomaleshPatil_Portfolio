@@ -1,0 +1,143 @@
+<main class="contact-page">
+  <div class="container">
+    <app-section-heading
+      title="Let's Work Together"
+      subtitle="Have a project in mind? I'd love to hear from you."
+      overline="Contact">
+    </app-section-heading>
+    
+    <div class="contact-content">
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h3>Get In Touch</h3>
+        <p class="intro-text">
+          I'm always interested in new opportunities and exciting projects. 
+          Whether you have a question or just want to say hi, I'll do my best to get back to you!
+        </p>
+        
+        <div class="contact-methods">
+          <div class="contact-method" *ngIf="content?.person?.email">
+            <div class="method-icon">📧</div>
+            <div class="method-content">
+              <h4>Email</h4>
+              <button 
+                class="email-button"
+                (click)="copyEmail()"
+                [title]="emailCopied ? 'Copied!' : 'Click to copy email'">
+                {{ content?.person?.email }}
+                <span class="copy-indicator" [class.copied]="emailCopied">
+                  {{ emailCopied ? '✓' : '📋' }}
+                </span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="contact-method" *ngIf="content?.person?.location">
+            <div class="method-icon">📍</div>
+            <div class="method-content">
+              <h4>Location</h4>
+              <p>{{ content?.person?.location }}</p>
+            </div>
+          </div>
+          
+          <div class="contact-method" *ngIf="content?.person?.availabilityBadge">
+            <div class="method-icon">💼</div>
+            <div class="method-content">
+              <h4>Availability</h4>
+              <p class="availability">{{ content?.person?.availabilityBadge }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="social-links" *ngIf="content?.person?.socials">
+          <h4>Find Me Online</h4>
+          <div class="social-grid">
+            <a 
+              *ngFor="let social of content?.person?.socials || []"
+              [href]="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+              [title]="social.label">
+              <span class="social-icon">{{ getSocialIcon(social.icon || social.label) }}</span>
+              <span class="social-label">{{ social.label }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="contact-form-section">
+        <h3>Send a Message</h3>
+        <p class="form-intro">
+          Prefer to send a message directly? Use the form below and I'll get back to you as soon as possible.
+        </p>
+        
+        <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              [(ngModel)]="formData.name"
+              required
+              class="form-input"
+              placeholder="Your full name">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="formData.email"
+              required
+              class="form-input"
+              placeholder="your.email@example.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              [(ngModel)]="formData.subject"
+              class="form-input"
+              placeholder="What's this about?">
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              [(ngModel)]="formData.message"
+              required
+              rows="6"
+              class="form-textarea"
+              placeholder="Tell me about your project or just say hello..."></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <app-button
+              type="submit"
+              variant="primary"
+              size="large"
+              [disabled]="!contactForm.form.valid || isSubmitting"
+              [fullWidth]="true">
+              {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+            </app-button>
+          </div>
+          
+          <p class="form-note">
+            * This form is for demonstration purposes. In a real application, 
+            this would integrate with a backend service to handle form submissions.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

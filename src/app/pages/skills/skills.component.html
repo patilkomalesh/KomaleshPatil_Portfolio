@@ -1,0 +1,78 @@
+<main class="skills-page">
+  <div class="container">
+    <app-section-heading
+      title="Skills & Technologies"
+      subtitle="My technical expertise across different domains"
+      overline="Capabilities">
+    </app-section-heading>
+    
+    <div class="skills-grid" *ngIf="content?.skills">
+      <div 
+        *ngFor="let category of content?.skills || []" 
+        class="skill-category"
+        [class.animate-fade-in]="true">
+        
+        <div class="category-header">
+          <h3>{{ category?.category }}</h3>
+          <div class="category-icon">{{ getCategoryIcon(category?.category || '') }}</div>
+        </div>
+        
+        <div class="skills-list">
+          <div 
+                          *ngFor="let skill of category?.items || []" 
+            class="skill-item"
+            [class]="getSkillLevelClass(skill?.level)">
+            
+            <div class="skill-info">
+              <span class="skill-name">{{ skill?.name }}</span>
+              <span class="skill-level" *ngIf="skill?.level">
+                <app-badge 
+                  [variant]="getLevelBadgeVariant(skill?.level)"
+                  size="small">
+                  {{ skill?.level }}
+                </app-badge>
+              </span>
+            </div>
+            
+            <div class="skill-progress" *ngIf="skill?.level">
+              <div 
+                class="progress-bar"
+                [style.width.%]="getLevelPercentage(skill?.level)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="skills-summary">
+      <h3>Quick Overview</h3>
+      <div class="summary-stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ getTotalSkills() }}</span>
+          <span class="stat-label">Total Skills</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ getAdvancedSkills() }}</span>
+          <span class="stat-label">Advanced</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ getCategories() }}</span>
+          <span class="stat-label">Categories</span>
+        </div>
+      </div>
+      
+      <div class="skill-cloud">
+        <h4>All Technologies</h4>
+        <div class="cloud-tags">
+          <app-badge 
+            *ngFor="let skill of getAllSkills()" 
+            [variant]="getLevelBadgeVariant(skill?.level)"
+            [size]="getCloudSize(skill?.level)">
+            {{ skill?.name }}
+          </app-badge>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,177 @@
+<main class="projects-page">
+  <div class="container">
+    <app-section-heading
+      title="Projects"
+      subtitle="A collection of things I've built"
+      overline="Portfolio">
+    </app-section-heading>
+    
+    <div class="filters" *ngIf="allTags.length > 0">
+      <h3>Filter by Technology:</h3>
+      <div class="tag-filters">
+        <app-button
+          variant="ghost"
+          size="small"
+          [class.active]="selectedTags.size === 0"
+          (clicked)="clearFilters()">
+          All
+        </app-button>
+        <app-button
+          *ngFor="let tag of allTags"
+          variant="ghost"
+          size="small"
+          [class.active]="selectedTags.has(tag)"
+          (clicked)="toggleTagFilter(tag)">
+          {{ tag }}
+        </app-button>
+      </div>
+    </div>
+    
+    <div class="projects-section" *ngIf="featuredProjects.length > 0">
+      <h3 class="subsection-title">Featured Projects</h3>
+      <div class="projects-grid featured">
+        <div 
+          *ngFor="let project of featuredProjects" 
+          class="project-card featured-card"
+          (click)="openProjectDetail(project)">
+          <div class="project-image">
+            <img 
+              [src]="getProjectImage(project)" 
+              [alt]="project.name"
+              loading="lazy">
+            <div class="featured-badge">
+              <app-badge variant="warning">⭐ Featured</app-badge>
+            </div>
+          </div>
+          
+          <div class="project-content">
+            <h4>{{ project.name }}</h4>
+            <p>{{ project.description }}</p>
+            
+            <div class="project-stack">
+              <app-badge 
+                *ngFor="let tech of project.stack.slice(0, 4)" 
+                variant="primary" 
+                size="small">
+                {{ tech }}
+              </app-badge>
+              <span *ngIf="project.stack.length > 4" class="more-tech">
+                +{{ project.stack.length - 4 }} more
+              </span>
+            </div>
+            
+            <div class="project-tags" *ngIf="project.tags?.length">
+              <app-badge 
+                *ngFor="let tag of project.tags" 
+                variant="secondary" 
+                size="small">
+                {{ tag }}
+              </app-badge>
+            </div>
+            
+            <div class="project-links">
+              <a 
+                *ngIf="project.links?.live"
+                [href]="project.links.live"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link live"
+                (click)="$event.stopPropagation()">
+                🌐 Live Demo
+              </a>
+              <a 
+                *ngIf="project.links?.repo"
+                [href]="project.links.repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link repo"
+                (click)="$event.stopPropagation()">
+                📁 Code
+              </a>
+              <a 
+                *ngIf="project.links?.caseStudy"
+                [href]="project.links.caseStudy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link case-study"
+                (click)="$event.stopPropagation()">
+                📖 Case Study
+              </a>
+              <a 
+                *ngIf="project.links?.publication"
+                [href]="project.links.publication"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link publication"
+                (click)="$event.stopPropagation()">
+                📄 Publication
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="projects-section" *ngIf="otherProjects.length > 0">
+      <h3 class="subsection-title">Other Projects</h3>
+      <div class="projects-grid">
+        <div 
+          *ngFor="let project of otherProjects" 
+          class="project-card"
+          (click)="openProjectDetail(project)">
+          
+          <div class="project-content">
+            <h4>{{ project.name }}</h4>
+            <p>{{ project.description }}</p>
+            
+            <div class="project-stack">
+              <app-badge 
+                *ngFor="let tech of project.stack.slice(0, 3)" 
+                variant="secondary" 
+                size="small">
+                {{ tech }}
+              </app-badge>
+            </div>
+            
+            <div class="project-links">
+              <a 
+                *ngIf="project.links?.live"
+                [href]="project.links.live"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                (click)="$event.stopPropagation()">
+                Live ↗
+              </a>
+              <a 
+                *ngIf="project.links?.repo"
+                [href]="project.links.repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                (click)="$event.stopPropagation()">
+                Code ↗
+              </a>
+              <a 
+                *ngIf="project.links?.publication"
+                [href]="project.links.publication"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                (click)="$event.stopPropagation()">
+                Publication ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="no-results" *ngIf="featuredProjects.length === 0 && otherProjects.length === 0 && selectedTags.size > 0">
+      <p>No projects found for the selected technologies.</p>
+      <app-button variant="secondary" (clicked)="clearFilters()">
+        Clear Filters
+      </app-button>
+    </div>
+  </div>
+</main>

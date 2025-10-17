@@ -1,0 +1,8 @@
+<span
+  class="theme-toggle"
+  (click)="toggleTheme()"
+  [attr.aria-label]="currentTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'"
+  title="Toggle theme"
+  [class.rotate]="isTransitioning">
+  {{ currentTheme === 'light' ? '🌙' : '☀️' }}
+</span>

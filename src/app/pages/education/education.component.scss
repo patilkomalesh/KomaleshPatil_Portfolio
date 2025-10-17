@@ -1,0 +1,329 @@
+.education-page {
+  padding: 6rem 0 4rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 2rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.education-section,
+.certifications-section,
+.learning-stats {
+  margin-bottom: 4rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Timeline for Education
+.timeline {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-border);
+    
+    @media (max-width: 768px) {
+      left: 15px;
+    }
+  }
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  .timeline-marker {
+    position: absolute;
+    left: 11px;
+    top: 1.5rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--color-primary-600);
+    border: 3px solid var(--color-background-primary);
+    z-index: 1;
+    
+    @media (max-width: 768px) {
+      left: 6px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.education-card {
+  margin-left: 4rem;
+  padding: 2rem;
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary-300);
+  }
+  
+  @media (max-width: 768px) {
+    margin-left: 3rem;
+    padding: 1.5rem;
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.title-section {
+  flex: 1;
+  
+  .program {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .school {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0 0 0.75rem 0;
+  }
+  
+  .dates {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+}
+
+.achievements {
+  margin-bottom: 1.5rem;
+  
+  h6 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      
+      &::before {
+        content: '🏆';
+        position: absolute;
+        left: 0;
+        font-size: 0.875rem;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  
+  .school-link {
+    color: var(--color-primary-600);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: var(--color-primary-700);
+      border-bottom-color: var(--color-primary-700);
+    }
+  }
+}
+
+// Certifications Grid
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.certification-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary-300);
+  }
+  
+  &.has-link {
+    cursor: pointer;
+  }
+  
+  .cert-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .cert-content {
+    flex: 1;
+    
+    .cert-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin: 0 0 0.5rem 0;
+      line-height: 1.3;
+    }
+    
+    .cert-org {
+      color: var(--color-text-secondary);
+      margin: 0 0 0.5rem 0;
+      font-weight: 500;
+    }
+  }
+  
+  .cert-actions {
+    flex-shrink: 0;
+    
+    .verify-link {
+      color: var(--color-primary-600);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--color-primary-200);
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: var(--color-primary-50);
+        border-color: var(--color-primary-300);
+      }
+    }
+  }
+}
+
+// Learning Stats
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .stat-content {
+    flex: 1;
+    
+    .stat-number {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--color-primary-600);
+      line-height: 1;
+    }
+    
+    .stat-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .education-card,
+  .certification-card,
+  .stat-card {
+    &:hover {
+      transform: none;
+    }
+  }
+}

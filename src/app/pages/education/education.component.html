@@ -1,0 +1,136 @@
+<main class="education-page">
+  <div class="container">
+    <app-section-heading
+      title="Education & Certifications"
+      subtitle="My academic background and professional certifications"
+      overline="Learning">
+    </app-section-heading>
+    
+    <!-- Education Section -->
+    <div class="education-section" *ngIf="content?.education?.length">
+      <h3 class="section-title">🎓 Education</h3>
+      
+      <div class="timeline">
+        <div 
+          *ngFor="let edu of content?.education || []" 
+          class="timeline-item education-item">
+          
+          <div class="timeline-marker"></div>
+          
+          <div class="education-card">
+            <div class="card-header">
+              <div class="title-section">
+                <h4 class="program">{{ edu.program }}</h4>
+                <h5 class="school">{{ edu.school }}</h5>
+                <div class="dates">
+                  {{ formatDate(edu.start) }} - {{ formatDate(edu.end) }}
+                </div>
+              </div>
+              
+              <div class="duration-badge">
+                <app-badge variant="primary">
+                  {{ calculateDuration(edu.start, edu.end) }}
+                </app-badge>
+              </div>
+            </div>
+            
+            <div class="grade" *ngIf="edu.grade">
+              <app-badge variant="success" size="small">{{ edu.grade }}</app-badge>
+            </div>
+            
+            <div class="achievements" *ngIf="edu.achievements && edu.achievements.length > 0">
+              <h6>Achievements:</h6>
+              <ul>
+                <li *ngFor="let achievement of edu.achievements">{{ achievement }}</li>
+              </ul>
+            </div>
+            
+            <div class="links" *ngIf="edu.links && edu.links.length > 0">
+              <a 
+                *ngFor="let link of edu.links"
+                [href]="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="school-link">
+                {{ link.label }} ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Certifications Section -->
+    <div class="certifications-section" *ngIf="content?.certifications?.length">
+      <h3 class="section-title">🏆 Certifications</h3>
+      
+      <div class="certifications-grid">
+        <div 
+          *ngFor="let cert of content?.certifications || []" 
+          class="certification-card"
+          [class.has-link]="cert.url">
+          
+          <div class="cert-icon">🏅</div>
+          
+          <div class="cert-content">
+            <h4 class="cert-name">{{ cert.name }}</h4>
+            <p class="cert-org">{{ cert.org }}</p>
+            <div class="cert-year" *ngIf="cert.year">
+              <app-badge variant="secondary" size="small">{{ cert.year }}</app-badge>
+            </div>
+          </div>
+          
+          <div class="cert-actions" *ngIf="cert.url">
+            <a 
+              [href]="cert.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="verify-link"
+              title="Verify Certificate">
+              🔗 Verify
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Learning Stats -->
+    <div class="learning-stats">
+      <h3 class="section-title">📊 Learning Overview</h3>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🎓</div>
+          <div class="stat-content">
+            <span class="stat-number">{{ getEducationCount() }}</span>
+            <span class="stat-label">Degrees</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-content">
+            <span class="stat-number">{{ getCertificationCount() }}</span>
+            <span class="stat-label">Certifications</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-content">
+            <span class="stat-number">{{ getLatestYear() }}</span>
+            <span class="stat-label">Latest</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-content">
+            <span class="stat-number">{{ getTotalAchievements() }}</span>
+            <span class="stat-label">Achievements</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

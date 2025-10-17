@@ -1,0 +1,19 @@
+.theme-toggle {
+  display: inline-block;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.9);
+  }
+  
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}

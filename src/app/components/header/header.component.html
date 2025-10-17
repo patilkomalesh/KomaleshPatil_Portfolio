@@ -1,0 +1,39 @@
+<header class="header" [class.scrolled]="isScrolled">
+  <nav class="nav container">
+    <div class="nav-brand">
+      <a routerLink="/" class="brand-link">
+        {{ personName || 'Portfolio' }}
+      </a>
+    </div>
+    
+    <div class="nav-menu" [class.open]="mobileMenuOpen">
+      <a class="skip-link" href="#main-content">Skip to main content</a>
+      
+      <ul class="nav-links">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+        <li><a routerLink="/experience" routerLinkActive="active">Experience</a></li>
+        <li><a routerLink="/projects" routerLinkActive="active">Projects</a></li>
+        <li><a routerLink="/skills" routerLinkActive="active">Skills</a></li>
+        <li><a routerLink="/education" routerLinkActive="active">Education</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <app-theme-toggle></app-theme-toggle>
+        <button class="cmd-palette-btn" (click)="openCommandPalette()" title="Command Palette (Ctrl+K)">
+          ⌘K
+        </button>
+      </div>
+    </div>
+    
+    <button 
+      class="mobile-menu-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="mobileMenuOpen"
+      [attr.aria-label]="mobileMenuOpen ? 'Close menu' : 'Open menu'">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+</header>

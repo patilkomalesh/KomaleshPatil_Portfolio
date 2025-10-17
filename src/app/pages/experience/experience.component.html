@@ -1,0 +1,97 @@
+<main class="experience-page">
+  <div class="container">
+    <app-section-heading
+      title="Professional Experience"
+      subtitle="My journey through various roles and companies"
+      overline="Career">
+    </app-section-heading>
+    
+    <div class="filters" *ngIf="allSkills.length > 0">
+      <h3>Filter by Skills:</h3>
+      <div class="skill-filters">
+        <app-button
+          variant="ghost"
+          size="small"
+          [class.active]="selectedSkills.size === 0"
+          (clicked)="clearFilters()">
+          All
+        </app-button>
+        <app-button
+          *ngFor="let skill of allSkills"
+          variant="ghost"
+          size="small"
+          [class.active]="selectedSkills.has(skill)"
+          (clicked)="toggleSkillFilter(skill)">
+          {{ skill }}
+        </app-button>
+      </div>
+    </div>
+    
+    <div class="timeline">
+      <div 
+        *ngFor="let exp of filteredExperience" 
+        class="timeline-item"
+        [class.animate-slide-in]="true">
+        
+        <div class="timeline-marker"></div>
+        
+        <div class="experience-card">
+          <div class="card-header">
+            <div class="title-section">
+              <h3 class="job-title">{{ exp.title }}</h3>
+              <h4 class="company">{{ exp.company }}</h4>
+              <div class="meta">
+                <span class="dates">
+                  {{ formatDate(exp.start) }} - {{ exp.end ? formatDate(exp.end) : 'Present' }}
+                </span>
+                <span class="location" *ngIf="exp.location">📍 {{ exp.location }}</span>
+              </div>
+            </div>
+            
+            <div class="duration-badge">
+              <app-badge variant="secondary">
+                {{ calculateDuration(exp.start, exp.end) }}
+              </app-badge>
+            </div>
+          </div>
+          
+          <div class="highlights" *ngIf="exp.highlights?.length">
+            <ul>
+              <li *ngFor="let highlight of exp.highlights">{{ highlight }}</li>
+            </ul>
+          </div>
+          
+          <div class="tech-stack" *ngIf="exp.stack?.length">
+            <h5>Technologies Used:</h5>
+            <div class="stack-badges">
+              <app-badge 
+                *ngFor="let tech of exp.stack" 
+                variant="primary" 
+                size="small">
+                {{ tech }}
+              </app-badge>
+            </div>
+          </div>
+          
+          <div class="links" *ngIf="exp.links?.length">
+            <a 
+              *ngFor="let link of exp.links"
+              [href]="link.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="company-link">
+              {{ link.label }} ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="no-results" *ngIf="filteredExperience.length === 0 && selectedSkills.size > 0">
+      <p>No experience found for the selected skills.</p>
+      <app-button variant="secondary" (clicked)="clearFilters()">
+        Clear Filters
+      </app-button>
+    </div>
+  </div>
+</main>
