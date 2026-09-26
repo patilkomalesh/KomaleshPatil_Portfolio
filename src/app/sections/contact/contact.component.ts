@@ -29,7 +29,7 @@ import { RevealDirective } from '../../shared/reveal.directive';
         @for (s of socials(); track s.url) {
           <a [href]="s.url" target="_blank" rel="noopener" class="btn btn--secondary">{{ s.label }}</a>
         }
-        <a [href]="resumeUrl()" target="_blank" rel="noopener" class="btn btn--secondary">Résumé</a>
+        <a [href]="resumeUrl()" target="_blank" rel="noopener" class="btn btn--secondary">Resume</a>
       </div>
     </section>
   `,
