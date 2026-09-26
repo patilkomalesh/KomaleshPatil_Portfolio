@@ -33,7 +33,9 @@ $rail-x: $when-col + $rail-gap * 0.5;
   background: linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 40%, transparent));
   transform: scaleY(var(--fill));
   transform-origin: top;
-  transition: transform 0.5s linear;
+  // No transition here: --fill is already updated every scroll frame in JS,
+  // so a CSS transition on top of that just lags a beat behind real scroll
+  // position (most visible on touch scrolling, where frames arrive faster).
 }
 
 .stops {

@@ -1,6 +1,16 @@
-import { Component, input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  input,
+  viewChildren,
+} from '@angular/core';
 import { SkillGroup } from '../../content/content.model';
 import { RevealDirective } from '../../shared/reveal.directive';
+
+/** Pixels the marquee travels per second. One constant speed, every lane. */
+const PX_PER_SECOND = 30;
 
 @Component({
   selector: 'app-skills',
@@ -15,10 +25,12 @@ import { RevealDirective } from '../../shared/reveal.directive';
         @for (g of groups(); track g.category; let i = $index) {
           <div class="lane" [appReveal]="i * 150" [class.lane--reverse]="i % 2 === 1">
             <h3 class="lane__label">{{ g.category }}</h3>
-            <div class="lane__track" [style.--speed]="40 + i * 8 + 's'">
-              <!-- Two copies so the loop has no seam; the second is hidden from screen readers. -->
+            <div class="lane__track">
+              <!-- Two copies so the loop has no seam; the second is hidden from screen readers.
+                   #track measures one copy's width to set a duration that gives every lane
+                   the same px/s, regardless of how many items it holds. -->
               @for (copy of [0, 1]; track copy) {
-                <ul class="lane__items" [attr.aria-hidden]="copy === 1 ? 'true' : null">
+                <ul class="lane__items" #track [attr.aria-hidden]="copy === 1 ? 'true' : null">
                   @for (s of g.items; track s.name) {
                     <li [class.strong]="s.level === 'Advanced'">{{ s.name }}</li>
                   }
@@ -69,7 +81,7 @@ import { RevealDirective } from '../../shared/reveal.directive';
       margin: 0;
       padding: 0 14px 0 0;
       list-style: none;
-      animation: slide var(--speed, 40s) linear infinite;
+      animation: slide var(--duration, 20s) linear infinite;
     }
     .lane--reverse .lane__items {
       animation-direction: reverse;
@@ -117,6 +129,24 @@ import { RevealDirective } from '../../shared/reveal.directive';
     }
   `,
 })
-export class SkillsComponent {
+export class SkillsComponent implements AfterViewInit {
   readonly groups = input.required<SkillGroup[]>();
+
+  private readonly tracks = viewChildren<ElementRef<HTMLUListElement>>('track');
+
+  ngAfterViewInit(): void {
+    // Layout needs a frame to settle (fonts, reveal transforms) before widths are real.
+    requestAnimationFrame(() => this.setDurations());
+  }
+
+  @HostListener('window:resize')
+  setDurations(): void {
+    for (const track of this.tracks()) {
+      const el = track.nativeElement;
+      const width = el.scrollWidth;
+      if (width > 0) {
+        el.style.setProperty('--duration', `${width / PX_PER_SECOND}s`);
+      }
+    }
+  }
 }
