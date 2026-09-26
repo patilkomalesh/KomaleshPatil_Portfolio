@@ -1,33 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { ContentService } from './services/content.service';
-import { ThemeService } from './services/theme.service';
+import { Component, ElementRef, effect, inject, viewChild } from '@angular/core';
+import { ScrollAtmosphereService } from './core/scroll/scroll-atmosphere.service';
+import { ThemeService } from './core/theme/theme.service';
+import { ContentService } from './content/content.service';
+import { BackgroundComponent } from './sections/background/background.component';
+import { ContactComponent } from './sections/contact/contact.component';
+import { HeroComponent } from './sections/hero/hero.component';
+import { ProjectsComponent } from './sections/projects/projects.component';
+import { SkillsComponent } from './sections/skills/skills.component';
+import { WorkComponent } from './sections/work/work.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [
+    HeroComponent,
+    WorkComponent,
+    ProjectsComponent,
+    SkillsComponent,
+    BackgroundComponent,
+    ContactComponent,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class AppComponent implements OnInit {
-  title = 'Angular Portfolio';
+export class App {
+  protected readonly theme = inject(ThemeService);
+  protected readonly scroll = inject(ScrollAtmosphereService);
+  protected readonly content = inject(ContentService).content;
 
-  constructor(
-    private contentService: ContentService,
-    private themeService: ThemeService
-  ) {}
+  protected readonly resumeUrl = 'assets/Komalesh_Patil_FullStack.pdf';
+  protected readonly year = new Date().getFullYear();
 
-  ngOnInit(): void {
-    // Load content on app initialization
-    this.contentService.loadContent().subscribe();
-    
-    // Set up theme listener
-    document.addEventListener('toggle-theme', () => {
-      this.themeService.toggleTheme();
+  readonly nav = [
+    { label: 'Work', id: 'work' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Skills', id: 'skills' },
+  ];
+
+  private readonly main = viewChild<ElementRef<HTMLElement>>('main');
+
+  constructor() {
+    // Sections only exist once content.json has loaded, so start watching then.
+    effect(() => {
+      const el = this.main()?.nativeElement;
+      if (el) queueMicrotask(() => this.scroll.watch(el));
     });
   }
 }
