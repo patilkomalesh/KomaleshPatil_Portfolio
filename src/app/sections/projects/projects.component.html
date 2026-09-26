@@ -1,0 +1,97 @@
+<section class="projects" id="projects" data-tone="gold">
+  <header class="section-head" appReveal>
+    <h2>Things I've built</h2>
+    <p>AI tooling from work at FinIQ, alongside research from my time at VIT Pune.</p>
+  </header>
+
+  <div class="grid">
+    @for (p of projects(); track p.name; let i = $index) {
+      <div class="card-wrap reveal--scale" [appReveal]="i * 180">
+      <article class="card" appTilt="6">
+        <div class="card__art" aria-hidden="true">
+          @switch (art(p)) {
+            @case ('trace') {
+              <svg viewBox="0 0 330 160" class="art art--trace">
+                @for (l of traceLayers; track l.label; let i = $index) {
+                  <rect x="15" [attr.y]="l.y" [attr.width]="l.w" height="24" rx="4" class="layer" [style.animation-delay.ms]="-i * 700" />
+                  <text x="24" [attr.y]="l.y + 16" class="layer__label">{{ l.label }}</text>
+                }
+                <path d="M175 142 L175 108 L145 108 L145 74 L85 74 L85 40 L100 40" class="trace-path" />
+                <circle cx="100" cy="40" r="4" class="trace-dot" />
+              </svg>
+            }
+            @case ('dashboard') {
+              <svg viewBox="0 0 330 160" class="art art--dashboard">
+                @for (b of dashboardBars; track $index) {
+                  <rect [attr.x]="b.x" [attr.y]="140 - b.h" width="22" [attr.height]="b.h" rx="2" class="bar" [style.animation-delay.ms]="-$index * 500" />
+                }
+                <path d="M12 96 L47 70 L82 108 L117 52 L152 88 L187 34 L222 76 L257 46 L292 60" class="trend" />
+              </svg>
+            }
+            @case ('clusters') {
+              <svg viewBox="0 0 330 160" class="art art--clusters">
+                @for (pt of points; track $index) {
+                  <circle
+                    [attr.cx]="pt.x"
+                    [attr.cy]="pt.y"
+                    r="3.4"
+                    [class]="'pt pt--' + pt.c"
+                    [style.animation-delay.ms]="-pt.d"
+                  />
+                }
+                @for (c of centroids; track $index) {
+                  <g [attr.transform]="'translate(' + c.x + ' ' + c.y + ')'" class="centroid">
+                    <circle r="26" class="halo" [style.animation-delay.ms]="-$index * 1400" />
+                    <path d="M-6 0h12M0-6v12" />
+                  </g>
+                }
+              </svg>
+            }
+            @case ('parking') {
+              <svg viewBox="0 0 330 160" class="art art--parking">
+                @for (b of bays; track $index) {
+                  <rect [attr.x]="b.x" [attr.y]="b.y" width="30" height="48" rx="3" class="bay" />
+                  @if (b.taken) {
+                    <rect
+                      [attr.x]="b.x + 5"
+                      [attr.y]="b.y + 7"
+                      width="20"
+                      height="34"
+                      rx="5"
+                      class="car"
+                    />
+                  } @else {
+                    <text [attr.x]="b.x + 15" [attr.y]="b.y + 30" class="free">P</text>
+                  }
+                }
+                <rect x="0" y="0" width="3" height="160" class="scan" />
+              </svg>
+            }
+          }
+        </div>
+
+        <div class="card__body">
+          @if (p.tags?.length) {
+            <p class="card__tags">{{ p.tags!.join(' / ') }}</p>
+          }
+          <h3>{{ p.name }}</h3>
+          <p class="card__desc">{{ p.description }}</p>
+          <p class="card__stack">{{ p.stack.join(', ') }}</p>
+          @if (links(p).length) {
+            <div class="card__links">
+              @for (l of links(p); track l.url) {
+                <a [href]="l.url" target="_blank" rel="noopener" class="card__link">
+                  {{ l.label }}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M7 17 17 7M8 7h9v9" />
+                  </svg>
+                </a>
+              }
+            </div>
+          }
+        </div>
+      </article>
+      </div>
+    }
+  </div>
+</section>

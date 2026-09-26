@@ -1,10 +1,264 @@
-.app-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-.main-content {
-  flex: 1;
-  padding-top: 4rem; /* Account for fixed header */
+// ------------------------------------------------------------------ ambient light
+// Two soft blobs drifting on long, offset loops. Their colours are the
+// --glow / --glow-alt tokens, which ease between sections.
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+  }
+}
+
+.ambient__a {
+  top: -20vmax;
+  right: -15vmax;
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  animation: wander-a 38s ease-in-out infinite alternate;
+}
+
+.ambient__b {
+  bottom: -25vmax;
+  left: -20vmax;
+  width: 60vmax;
+  height: 60vmax;
+  background: radial-gradient(closest-side, var(--glow-alt), transparent);
+  animation: wander-b 46s ease-in-out infinite alternate;
+}
+
+@keyframes wander-a {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-18vw, 22vh) scale(1.15);
+  }
+  100% {
+    transform: translate(-6vw, 50vh) scale(0.9);
+  }
+}
+
+@keyframes wander-b {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(24vw, -18vh) scale(1.1);
+  }
+  100% {
+    transform: translate(40vw, -40vh) scale(0.95);
+  }
+}
+
+// ------------------------------------------------------------------ progress
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.25s linear;
+}
+
+// ------------------------------------------------------------------ floating nav
+
+.nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+  transform: translateX(-50%);
+  animation: nav-in 1.4s var(--ease-out-slow) 0.2s backwards;
+  transition:
+    transform 0.9s var(--ease-out-slow),
+    opacity 0.7s ease,
+    background-color 0.8s ease,
+    box-shadow 0.8s ease;
+
+  // At the very top it sits flatter; once scrolled it lifts.
+  &--top {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  &--hidden {
+    transform: translate(-50%, -140%);
+    opacity: 0;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  nav a {
+    padding: 8px 16px;
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 14.5px;
+    text-decoration: none;
+    transition:
+      color 0.4s ease,
+      background-color 0.4s ease;
+
+    &:hover {
+      color: var(--text);
+      background: var(--surface-hover);
+    }
+  }
+}
+
+@keyframes nav-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+}
+
+.nav__mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: transform 0.8s var(--ease-out-slow);
+
+  &:hover {
+    transform: rotate(-12deg) scale(1.06);
+  }
+}
+
+.nav__theme {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 0.4s ease,
+    background-color 0.4s ease,
+    transform 0.8s var(--ease-out-slow);
+
+  &:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+    transform: rotate(40deg);
+  }
+}
+
+.nav__contact {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 16px 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.4s ease,
+    transform 0.6s var(--ease-out-slow);
+
+  &:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+}
+
+// ------------------------------------------------------------------ footer
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 28px;
+  padding-bottom: 40px;
+  background: linear-gradient(var(--border), var(--border)) center top / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+  font-size: 14px;
+  color: var(--text-faint);
+
+  a {
+    color: inherit;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav {
+    gap: 2px;
+
+    nav a {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+  }
+
+  // Icon-only contact pill once space is tight, so it never forces overflow.
+  .nav__contact {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+  }
+
+  .nav__contact span {
+    display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  // Third section link is the first to go; the rest still fit in a pill.
+  .nav nav a:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 340px) {
+  .nav nav a:nth-child(2) {
+    display: none;
+  }
 }

@@ -1,0 +1,39 @@
+<section class="work" id="work" data-tone="amber">
+  <header class="section-head" appReveal>
+    <h2>Where I've worked</h2>
+    <p>Building software for FX and structured-equity trading desks since January 2024.</p>
+  </header>
+
+  <div class="timeline" [style.--fill]="fill()">
+    <span class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></span>
+    <ol class="stops">
+
+    @for (job of jobs(); track job.title + job.start; let i = $index) {
+      <li class="stop" [class.stop--passed]="fill() > (i + 0.15) / jobs().length">
+        <span class="stop__dot" aria-hidden="true"></span>
+
+        <p class="stop__when reveal--left" appReveal>
+          {{ month(job.start) }} to {{ endLabel(job.end) }}
+        </p>
+
+        <article class="job reveal--right" [appReveal]="120">
+          <h3>{{ job.title }}</h3>
+          <p class="job__at">{{ company(job) }}@if (job.location) {, {{ job.location.split(',')[0] }}}</p>
+          <ul>
+            @for (h of job.highlights; track h) {
+              <li>{{ h }}</li>
+            }
+          </ul>
+          @if (job.stack?.length) {
+            <p class="job__stack">
+              @for (t of job.stack; track t) {
+                <span>{{ t }}</span>
+              }
+            </p>
+          }
+        </article>
+      </li>
+    }
+    </ol>
+  </div>
+</section>

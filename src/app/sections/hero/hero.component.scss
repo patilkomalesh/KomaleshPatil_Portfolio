@@ -1,0 +1,387 @@
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: 64px;
+  align-items: center;
+  min-height: 100svh;
+  padding: 120px 0 96px;
+}
+
+// ------------------------------------------------------------------ opening sequence
+// One orchestrated entrance: each line rises out of a mask, then the rest fades
+// in beneath. --i orders the steps.
+
+.line,
+.hello,
+.role {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.rise {
+  display: inline-block;
+  transform: translateY(105%);
+  animation: rise 1.4s var(--ease-out-slow) forwards;
+  animation-delay: calc(var(--i) * 180ms + 150ms);
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fade-up 1.4s var(--ease-out-slow) forwards;
+  animation-delay: calc(var(--i) * 180ms + 250ms);
+}
+
+@keyframes rise {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hello {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--text-muted);
+}
+
+h1 {
+  font-size: clamp(60px, 8vw, 116px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.role {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 400;
+  color: var(--accent-text);
+}
+
+.intro {
+  margin-top: 28px;
+  max-width: 54ch;
+  font-size: 17.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    transform 0.6s var(--ease-out-slow),
+    color 0.4s ease,
+    border-color 0.4s ease,
+    background-color 0.4s ease;
+
+  &:hover {
+    transform: translateY(-3px) rotate(-6deg);
+    color: var(--on-accent);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+// ------------------------------------------------------------------ floating card
+
+.hero__visual {
+  position: relative;
+  opacity: 0;
+  animation: card-in 1.8s var(--ease-out-slow) 0.7s forwards;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotate(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Wrapper carries the bob so the card itself is free to tilt.
+.float {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(1deg);
+  }
+}
+
+// Ground shadow shrinks as the card rises.
+.shadow {
+  width: 70%;
+  height: 22px;
+  margin: 28px auto 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 168, 50, 0.28), transparent);
+  filter: blur(6px);
+  animation: shadow 7s ease-in-out infinite;
+}
+
+@keyframes shadow {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scaleX(0.78);
+    opacity: 0.5;
+  }
+}
+
+.id-card {
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 55%),
+    var(--surface);
+  box-shadow:
+    0 30px 60px -30px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+    0 20px 70px -20px var(--glow);
+  animation: glow 7s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow:
+      0 30px 60px -30px rgba(0, 0, 0, 0.7),
+      0 20px 60px -24px rgba(242, 168, 50, 0.22);
+  }
+  50% {
+    box-shadow:
+      0 40px 70px -30px rgba(0, 0, 0, 0.6),
+      0 26px 90px -18px rgba(242, 168, 50, 0.4);
+  }
+}
+
+// Soft light that follows the pointer across the card.
+.id-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--glare-x, 30%) var(--glare-y, 0%),
+    rgba(255, 255, 255, 0.07),
+    transparent 45%
+  );
+  transition: background-position 0.9s ease;
+}
+
+.id-card__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+
+  // Slowly orbiting ring.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 22px;
+    border: 1px dashed color-mix(in srgb, var(--accent) 60%, transparent);
+    animation: spin 24s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.id-card__name {
+  font-size: 21px;
+  letter-spacing: -0.01em;
+}
+
+.id-card__role {
+  margin-top: 2px;
+  font-size: 14.5px;
+  color: var(--text-muted);
+}
+
+.id-card__rows {
+  margin: 24px 0 0;
+  border-top: 1px dashed var(--border-strong);
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+
+  dt {
+    color: var(--text-faint);
+  }
+
+  dd {
+    margin: 0;
+    text-align: right;
+  }
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+}
+
+.id-card__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--positive);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--positive);
+    animation: ping 2.8s ease-out infinite;
+  }
+}
+
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+// ------------------------------------------------------------------ scroll cue
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 24px;
+  height: 38px;
+  margin-left: -12px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 12px;
+  opacity: 0;
+  animation: fade-up 1.2s ease 2.2s forwards;
+
+  span {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 3px;
+    height: 7px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: var(--accent);
+    animation: wheel 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes wheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// ------------------------------------------------------------------ small screens
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+    min-height: auto;
+    padding-top: 128px;
+  }
+
+  .hero__visual {
+    max-width: 400px;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+}
